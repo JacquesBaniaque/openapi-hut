@@ -6,4 +6,5 @@ import spec from './swagger-config.yaml';
 const ui = SwaggerUI({
   spec,
   dom_id: '#swagger',
+  queryConfigEnabled: true
 });
