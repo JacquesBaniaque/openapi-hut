@@ -1,18 +1,20 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const isProduction = process.env.NODE_ENV == 'production';
 
 const stylesHandler = 'style-loader';
 
+const outputPath = path.resolve(path.resolve(), 'dist');
+
 const config = {
-    entry: './src/index.js',
+    entry: './src/index',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].bundle.js',
+        path: outputPath,
     },
-    devServer: {
-        open: true,
-        host: 'localhost',
+    resolve: {
+        extensions: ['.ts', '.js'],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -21,6 +23,12 @@ const config = {
     ],
     module: {
         rules: [
+            {
+            test: /\.yaml$/,
+                use: [
+                    { loader: 'yaml-loader' }
+                ]
+            },
             {
                 test: /\.(js|jsx)$/i,
                 loader: 'babel-loader',
@@ -32,16 +40,20 @@ const config = {
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset',
-            }
+            },
         ],
+    },
+    devServer: {
+        open: true,
+        host: 'localhost',
     },
 };
 
-module.exports = () => {
+export default () => {
     if (isProduction) {
         config.mode = 'production';
     } else {
         config.mode = 'development';
     }
     return config;
-};
+}

@@ -1,10 +1,14 @@
-function component() {
-  const element = document.createElement('div');
+import express from 'express'
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+const router = express.Router();
+const app = express();
 
-  return element;
-}
+const {
+  PORT = 3000,
+} = process.env;
 
-document.body.appendChild(component());
+app.use(express.static('dist'))
+
+app.listen(PORT, () => {
+  console.log('server started at http://localhost:'+PORT);
+});
