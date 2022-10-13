@@ -1,15 +1,5 @@
-# 🚀 Welcome to your new awesome project!
+This is a simple nodejs service that exposes swagger-ui. 
 
-This project has been created using **webpack-cli**, you can now run
+Swagger spec can be provided via 'url' query parameter.
 
-```
-npm run build
-```
-
-or
-
-```
-yarn build
-```
-
-to bundle your application
+e.g. http://localhost:3000/?url=https://petstore.swagger.io/v2/swagger.json
